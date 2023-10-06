@@ -41,7 +41,8 @@ kubectl apply -f 03-demo/02-descheduler.yaml
 ## Dashboard
 
 ```bash
-kubectl proxy --www=./dashboard
+kubectl proxy --www=./dashboard &
+open "http://localhost:8001/static/"
 ```
 
 ## Restart
