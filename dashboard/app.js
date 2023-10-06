@@ -4,7 +4,7 @@ let lastNodeResourceVersion;
 let startTime = undefined;
 const timer = document.querySelector("#timer");
 
-fetch("/api/v1/pods")
+fetch("/api/v1/namespaces/default/pods")
   .then((response) => response.json())
   .then((response) => {
     const pods = response.items;
@@ -29,7 +29,9 @@ fetch("/api/v1/nodes")
   .then(() => streamUpdatesNodes());
 
 function streamUpdatesPods() {
-  fetch(`/api/v1/pods?watch=1&resourceVersion=${lastPodResourceVersion}`)
+  fetch(
+    `/api/v1/namespaces/default/pods?watch=1&resourceVersion=${lastPodResourceVersion}`
+  )
     .then((response) => {
       const stream = response.body.getReader();
       const utf8Decoder = new TextDecoder("utf-8");
@@ -217,7 +219,6 @@ function App() {
       return [
         '<ul class="list pl0 flex flex-wrap h-100">',
         pods
-          .filter((pod) => pod.namespace === "default")
           .map((pod) => {
             if (pod.name.includes("overprovisioning")) {
               return [
@@ -226,6 +227,7 @@ function App() {
                 "</li>",
               ].join("");
             }
+            console.log(pod);
             var color = pod.evicting ? "yellow" : "green";
             return [
               '<li class="relative h-50 w-50">',
