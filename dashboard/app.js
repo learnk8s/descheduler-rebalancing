@@ -226,9 +226,10 @@ function App() {
                 "</li>",
               ].join("");
             }
+            var color = pod.evicting ? "yellow" : "green";
             return [
               '<li class="relative h-50 w-50">',
-              `<div class="flex flex-column pa1 h-100"><div class="w-100 h-100 bg-green br2" data-tooltip="${pod.name}"></div></div>`,
+              `<div class="flex flex-column pa1 h-100"><div class="w-100 h-100 bg-${color} br2" data-tooltip="${pod.name}"></div></div>`,
               "</li>",
             ].join("");
           })
@@ -248,6 +249,10 @@ function App() {
         namespace: pod.metadata.namespace,
         nodeName: pod.spec.nodeName,
         phase: pod.status.phase,
+        evicting:
+          pod.status.conditions.filter(
+            (condition) => condition.reason === "EvictionByEvictionAPI"
+          ).length > 0,
       });
       render();
     },
