@@ -217,6 +217,7 @@ function App() {
       return [
         '<ul class="list pl0 flex flex-wrap h-100">',
         pods
+          .filter((pod) => pod.namespace === "default")
           .map((pod) => {
             if (pod.name.includes("overprovisioning")) {
               return [
