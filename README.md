@@ -18,6 +18,12 @@ terraform -chdir=01-clusters apply -auto-approve
 terraform -chdir=01-clusters destroy -auto-approve
 ```
 
+Make sure that your kubectl is configured with the current kubeconfig file:
+
+```bash
+export KUBECONFIG="${PWD}/kubeconfig"
+```
+
 ## Installing the descheduler
 
 Deploy podinfo:
@@ -30,6 +36,12 @@ Deploy the descheduler with:
 
 ```bash
 kubectl apply -f 03-demo/02-descheduler.yaml
+```
+
+## Dashboard
+
+```bash
+kubectl proxy --www=./dashboard
 ```
 
 ## Restart
