@@ -227,7 +227,6 @@ function App() {
                 "</li>",
               ].join("");
             }
-            console.log(pod);
             var color = pod.evicting ? "yellow" : "green";
             return [
               '<li class="relative h-50 w-50">',
@@ -251,6 +250,7 @@ function App() {
         namespace: pod.metadata.namespace,
         nodeName: pod.spec.nodeName,
         phase: pod.status.phase,
+        // TODO: doesn't match when you delete the pods?!
         evicting:
           pod.status.conditions.filter(
             (condition) => condition.reason === "EvictionByEvictionAPI"
