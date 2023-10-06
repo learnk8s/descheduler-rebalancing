@@ -12,6 +12,7 @@ spec:
       labels:
         app: app
     spec:
+      terminationGracePeriodSeconds: 1
       containers:
         - name: memory
           image: polinux/stress
