@@ -23,11 +23,6 @@ resource "linode_lke_cluster" "this" {
   pool {
     type  = "g6-standard-2"
     count = 3
-
-    autoscaler {
-      min = 3
-      max = 10
-    }
   }
 
   # Prevent the count field from overriding autoscaler-created nodes
