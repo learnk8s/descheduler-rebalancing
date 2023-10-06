@@ -6,13 +6,13 @@ metadata:
   namespace: kube-system
 data:
   policy.yaml: |
-    apiVersion: "descheduler/v1alpha1"
+    apiVersion: "descheduler/v1alpha2"
     kind: "DeschedulerPolicy"
     profiles:
       - name: ProfileName
         pluginConfig:
         - name: "RemoveDuplicates"
-      plugins:
-        balance:
-          enabled:
-            - "RemoveDuplicates"
+        plugins:
+          balance:
+            enabled:
+              - "RemoveDuplicates"
